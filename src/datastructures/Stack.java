@@ -4,27 +4,27 @@ package datastructures;
 public class Stack {
 
     // top of stack
-    private Element top;
+    private StackElement first;
 
     public Stack() {
-        this.top = null;
+        this.first = null;
     }
 
     // get top od stack
-    public Element getTop() {
-        return top;
+    public StackElement getTop() {
+        return first;
     }
 
     //add element to top of stack
     public void push(int value) {
-        Element temp = new Element(value, top);
-        top = temp;
+        StackElement element = new StackElement(value, first);
+        first = element;
     }
 
     // delete element from top of stack
     public void pop() {
-        if (top != null) {
-            top = top.getNext();
+        if (first != null) {
+            first = first.getNext();
         } else {
             System.out.println("Stack is empty");
         }
@@ -32,15 +32,37 @@ public class Stack {
 
     //display content of stack
     public void show() {
-        if (top != null) {
-            Element temp = top;
-            while (temp != null) {
-                System.out.println(temp.getValue() + " ");
-                temp = temp.getNext();
+        if (first != null) {
+            StackElement element = first;
+            while (element != null) {
+                System.out.println(element.getValue() + " ");
+                element = element.getNext();
             }
             System.out.println();
         } else {
             System.out.println("Stack is empty");
         }
+    }
+}
+
+//Single Element
+class StackElement {
+
+    private int value;
+    private StackElement next;
+
+    public StackElement(int value, StackElement next) {
+        this.value = value;
+        this.next = next;
+    }
+
+    //get next element
+    public int getValue() {
+        return value;
+    }
+
+    //get value of element
+    public StackElement getNext() {
+        return next;
     }
 }
