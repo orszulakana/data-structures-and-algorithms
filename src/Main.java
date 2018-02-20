@@ -27,17 +27,17 @@ public class Main {
 
     private static void testQueue() {
         Queue queue = new Queue();
-        queue.add(2);
+        queue.enqueue(2);
         queue.show();
 
-        queue.add(6);
-        queue.add(5);
+        queue.enqueue(6);
+        queue.enqueue(5);
         queue.show();
 
-        queue.delete();
+        queue.dequeue();
         queue.show();
 
-        queue.delete();
+        queue.dequeue();
         queue.show();
     }
 }

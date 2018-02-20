@@ -3,33 +3,33 @@ package datastructures;
 // FIFO - First in, first out
 public class Queue {
 
-    private QueueElement first;
-    private QueueElement last;
+    private Element first;
+    private Element last;
 
     public Queue() {
         first = null;
         last = null;
     }
 
-    public QueueElement getFirst() {
+    public Element getFirst() {
         return first;
     }
 
-    public QueueElement getLast() {
+    public Element getLast() {
         return last;
     }
 
-    public void setLast(QueueElement element) {
+    public void setLast(Element element) {
         last = element;
     }
 
-    public void setFirst(QueueElement element) {
+    public void setFirst(Element element) {
         first = element;
     }
 
     // add element to end of queue
-    public void add(int value) {
-        QueueElement element = new QueueElement(value);
+    public void enqueue(int value) {
+        Element element = new Element(value);
         if (first == null) {
             first = last = element;
             element.setNext(null);
@@ -40,7 +40,7 @@ public class Queue {
     }
 
     /* delete last element  */
-    public void delete() {
+    public void dequeue() {
         if (first != null) {
             if (first.getNext() == null) {
                 last = null;
@@ -54,7 +54,7 @@ public class Queue {
     /* wyswietla zawartosc kolejki */
     public void show() {
         if (first != null) {
-            QueueElement temp = first;
+            Element temp = first;
             while (temp != null) {
                 System.out.print(temp.getValue() + " ");
                 temp = temp.getNext();
@@ -64,28 +64,29 @@ public class Queue {
             System.out.println("Queue is empty");
         }
     }
+
+    // single element in queue
+    class Element {
+
+        private int value;
+        private Element next;
+
+        public Element(int value) {
+            this.value = value;
+            this.next = null;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        public Element getNext() {
+            return next;
+        }
+
+        public void setNext(Element next) {
+            this.next = next;
+        }
+    }
 }
 
-// single element in queue
-class QueueElement {
-
-    private int value;
-    private QueueElement next;
-
-    public QueueElement(int value) {
-        this.value = value;
-        this.next = null;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public QueueElement getNext() {
-        return next;
-    }
-
-    public void setNext(QueueElement next) {
-        this.next = next;
-    }
-}
