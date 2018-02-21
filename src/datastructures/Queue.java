@@ -51,7 +51,7 @@ public class Queue {
         }
     }
 
-    /* wyswietla zawartosc kolejki */
+    /* show queue */
     public void show() {
         if (first != null) {
             Element temp = first;
