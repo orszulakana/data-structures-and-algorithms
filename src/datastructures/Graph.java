@@ -1,9 +1,7 @@
 package datastructures;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Graph {
 
@@ -17,8 +15,59 @@ public class Graph {
         adjacencyList = new HashMap<>();
     }
 
-    //TODO: addVertex, addVertices, addEdge, removeVertex, removeVertices, removeEdge
+    public boolean addVertex(Vertex vertex) {
+        return vertices.add(vertex);
+    }
 
+    public boolean addVertices(Collection<Vertex> vertices) {
+        return this.vertices.addAll(vertices);
+    }
+
+    public boolean removeVertex(Vertex vertex) {
+        return vertices.remove(vertex);
+    }
+
+    public boolean addEdge(Edge edge) {
+        if (!edges.add(edge)) return false;
+
+        adjacencyList.putIfAbsent(edge.vertex1, new HashSet<>());
+        adjacencyList.putIfAbsent(edge.vertex2, new HashSet<>());
+
+        adjacencyList.get(edge.vertex1).add(edge);
+        adjacencyList.get(edge.vertex2).add(edge);
+
+        return true;
+    }
+
+    public boolean removeEdge(Edge edge) {
+        if (!edges.remove(edge)) return false;
+        
+        Set<Edge> edgesOfVertex1 = adjacencyList.get(edge.vertex1);
+        Set<Edge> edgesOfVertex2 = adjacencyList.get(edge.vertex2);
+
+        if (edgesOfVertex1 != null) edgesOfVertex1.remove(edge);
+        if (edgesOfVertex2 != null) edgesOfVertex2.remove(edge);
+
+        return true;
+    }
+
+    public Set<Vertex> getAdjacencyVertices(Vertex vertex) {
+        return adjacencyList.get(vertex).stream()
+                .map(edge -> edge.vertex1.equals(vertex) ? edge.vertex2 : edge.vertex1)
+                .collect(Collectors.toSet());
+    }
+
+    public Set<Vertex> getVertices() {
+        return Collections.unmodifiableSet(vertices);
+    }
+
+    public Set<Edge> getEdges() {
+        return Collections.unmodifiableSet(edges);
+    }
+
+    public Map<Vertex, Set<Edge>> getAdjList() {
+        return Collections.unmodifiableMap(adjacencyList);
+    }
 
     private class Vertex {
 
